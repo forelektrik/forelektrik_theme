@@ -22,6 +22,7 @@ function forelektrik_theme_setup() {
 
     // Menüler
     register_nav_menus(array(
+        'top-menu' => 'Üst Menü' ,
         'primary' => 'Ana Menü',
         'categories' => 'Kategoriler Menüsü'
     ));
@@ -53,3 +54,27 @@ function forelektrik_theme_add_woocommerce_support() {
     add_theme_support('woocommerce');
 }
 add_action('after_setup_theme', 'forelektrik_theme_add_woocommerce_support');
+
+// Widget alanları ekleme
+function add_home_widget_areas() {
+    register_sidebar(array(
+        'name'          => 'Ana Sayfa Slider',
+        'id'            => 'home-slider',
+        'description'   => 'Ana sayfa slider alanı',
+        'before_widget' => '<div class="home-slider-widget">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h2>',
+        'after_title'   => '</h2>',
+    ));
+
+    register_sidebar(array(
+        'name'          => 'Ana Sayfa Promosyonlar',
+        'id'            => 'home-promotions',
+        'description'   => 'Ana sayfa promosyon banner alanları',
+        'before_widget' => '<div class="promo-widget">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h2>',
+        'after_title'   => '</h2>',
+    ));
+}
+add_action('widgets_init', 'add_home_widget_areas');
