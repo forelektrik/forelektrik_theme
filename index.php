@@ -1,57 +1,84 @@
-<?php
-/**
- * The main template file
- *
- * This is the most generic template file in a WordPress theme
- * and one of the two required files for a theme (the other being style.css).
- * It is used to display a page when nothing more specific matches a query.
- * E.g., it puts together the home page when no home.php file exists.
- *
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
- *
- * @package forelektrik_theme
- */
+<?php get_header(); ?>
 
-get_header();
-?>
+<main id="primary" class="site-main">
+    <div class="container">
+        <!-- Ana Slider/Banner -->
+        <section class="main-slider">
+            <?php 
+            if( function_exists('SmartSlider3') ) {
+                SmartSlider3( array( 'slider' => 2 ) ); // 1 yerine kendi slider ID'nizi yazın
+            }
+            ?>
+        </section>
 
-	<main id="primary" class="site-main">
+        <!-- Kategori Grid -->
+        <section class="category-grid">
+            <h2>Popüler Kategoriler</h2>
+            <div class="category-boxes">
+                <?php
+                $product_categories = get_terms('product_cat', array(
+                    'hide_empty' => false,
+                    'parent' => 0,
+                    'number' => 8
+                ));
 
-		<?php
-		if ( have_posts() ) :
+                if (!empty($product_categories)) {
+                    foreach ($product_categories as $category) {
+                        $thumbnail_id = get_term_meta($category->term_id, 'thumbnail_id', true);
+                        $image = wp_get_attachment_url($thumbnail_id);
+                        ?>
+                        <div class="category-box">
+                            <a href="<?php echo get_term_link($category); ?>">
+                                <?php if ($image) : ?>
+                                    <img src="<?php echo $image; ?>" alt="<?php echo $category->name; ?>">
+                                <?php endif; ?>
+                                <h3><?php echo $category->name; ?></h3>
+                            </a>
+                        </div>
+                        <?php
+                    }
+                }
+                ?>
+            </div>
+        </section>
 
-			if ( is_home() && ! is_front_page() ) :
-				?>
-				<header>
-					<h1 class="page-title screen-reader-text"><?php single_post_title(); ?></h1>
-				</header>
-				<?php
-			endif;
+        <!-- Öne Çıkan Ürünler -->
+        <section class="featured-products">
+            <h2>Öne Çıkan Ürünler</h2>
+            <?php
+            $args = array(
+                'post_type' => 'product',
+                'posts_per_page' => 8,
+                'tax_query' => array(
+                    array(
+                        'taxonomy' => 'product_visibility',
+                        'field'    => 'name',
+                        'terms'    => 'featured',
+                    ),
+                ),
+            );
+            $featured_query = new WP_Query($args);
 
-			/* Start the Loop */
-			while ( have_posts() ) :
-				the_post();
+            if ($featured_query->have_posts()) :
+                echo '<div class="products-grid">';
+                while ($featured_query->have_posts()) : $featured_query->the_post();
+                    wc_get_template_part('content', 'product');
+                endwhile;
+                echo '</div>';
+                wp_reset_postdata();
+            endif;
+            ?>
+        </section>
 
-				/*
-				 * Include the Post-Type-specific template for the content.
-				 * If you want to override this in a child theme, then include a file
-				 * called content-___.php (where ___ is the Post Type name) and that will be used instead.
-				 */
-				get_template_part( 'template-parts/content', get_post_type() );
+        <!-- Promosyon Banner'ları -->
+        <section class="promo-banners">
+            <?php
+            if (function_exists('dynamic_sidebar')) {
+                dynamic_sidebar('home-promotions');
+            }
+            ?>
+        </section>
+    </div>
+</main>
 
-			endwhile;
-
-			the_posts_navigation();
-
-		else :
-
-			get_template_part( 'template-parts/content', 'none' );
-
-		endif;
-		?>
-
-	</main><!-- #main -->
-
-<?php
-get_sidebar();
-get_footer();
+<?php get_footer(); ?>
