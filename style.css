@@ -11,53 +11,87 @@ License: GNU General Public License v2 or later
 License URI: LICENSE
 Text Domain: forelektrik_theme
 Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
-
-[Mevcut açıklamalar ve temel stiller devam ediyor...]
 */
 
-/* Normalize ve temel stiller devam ediyor... */
-
-/* Yeni Header Stilleri */
-.announcement-bar {
-    background-color: #007bff;
-    color: #fff;
-    font-size: 14px;
-    padding: 8px 0;
+/* Normalize */
+html {
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
 }
 
-.main-header {
-    border-bottom: 1px solid #eee;
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Layout */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* Header Styles */
+.announcement-bar {
+    background-color: #0066ff;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.site-header {
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.header-main {
     padding: 20px 0;
 }
 
-.site-branding img {
-    max-height: 60px;
-    width: auto;
+/* Branding */
+.site-branding {
+    text-align: center;
 }
 
+.site-title {
+    margin: 0;
+    font-size: 24px;
+}
+
+.site-title a {
+    color: #0066ff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Search Form */
 .search-form {
-    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.search-form .input-group {
+    display: flex;
 }
 
 .search-form input[type="search"] {
-    width: 100%;
+    flex: 1;
     padding: 10px 15px;
-    border: 2px solid #007bff;
-    border-radius: 4px;
+    border: 2px solid #0066ff;
+    border-radius: 4px 0 0 4px;
+    font-size: 16px;
 }
 
 .search-form button {
-    position: absolute;
-    right: 0;
-    top: 0;
-    height: 100%;
-    padding: 0 20px;
-    background: #007bff;
-    color: #fff;
+    padding: 10px 25px;
+    background: #0066ff;
+    color: white;
     border: none;
     border-radius: 0 4px 4px 0;
+    cursor: pointer;
 }
 
+/* Header Actions */
 .header-actions {
     display: flex;
     justify-content: flex-end;
@@ -73,22 +107,18 @@ Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-com
     gap: 8px;
 }
 
-.header-actions i {
-    font-size: 20px;
-}
-
 .cart-count {
-    background: #007bff;
-    color: #fff;
+    background: #0066ff;
+    color: white;
+    padding: 2px 8px;
     border-radius: 50%;
-    padding: 2px 6px;
     font-size: 12px;
 }
 
-/* Ana Menü Stilleri */
-.main-navigation {
+/* Navigation */
+.header-navigation {
     background: #f8f9fa;
-    border-bottom: 1px solid #eee;
+    border-top: 1px solid #eee;
 }
 
 .categories-menu {
@@ -97,14 +127,15 @@ Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-com
 
 .categories-menu-button {
     width: 100%;
-    padding: 12px 15px;
-    background: #007bff;
-    color: #fff;
+    background: #0066ff;
+    color: white;
     border: none;
+    padding: 12px 20px;
     border-radius: 4px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    justify-content: space-between;
+    cursor: pointer;
 }
 
 .categories-dropdown {
@@ -113,42 +144,86 @@ Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-com
     top: 100%;
     left: 0;
     width: 100%;
-    background: #fff;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 0 0 4px 4px;
     z-index: 1000;
+    padding: 10px 0;
 }
 
 .categories-menu:hover .categories-dropdown {
     display: block;
 }
 
-#primary-menu {
-    display: flex;
+.categories-dropdown li {
     list-style: none;
+}
+
+.categories-dropdown a {
+    padding: 8px 15px;
+    display: block;
+    color: #333;
+    text-decoration: none;
+}
+
+.categories-dropdown a:hover {
+    background: #f8f9fa;
+}
+
+/* Primary Menu */
+.primary-menu {
+    list-style: none;
+    display: flex;
     margin: 0;
     padding: 0;
 }
 
-#primary-menu li {
-    padding: 0 15px;
+.primary-menu li {
+    margin-right: 20px;
 }
 
-#primary-menu a {
+.primary-menu a {
     color: #333;
     text-decoration: none;
-    padding: 15px 0;
+    padding: 12px 0;
     display: block;
+    font-weight: 500;
 }
 
-#primary-menu a:hover {
-    color: #007bff;
+.primary-menu a:hover {
+    color: #0066ff;
 }
 
-/* Responsive Düzenlemeler */
+/* WooCommerce Overrides */
+.woocommerce ul.products li.product {
+    text-align: center;
+}
+
+.woocommerce ul.products li.product .price {
+    color: #0066ff;
+    font-size: 1.1em;
+}
+
+.woocommerce #respond input#submit, 
+.woocommerce a.button, 
+.woocommerce button.button, 
+.woocommerce input.button {
+    background-color: #0066ff;
+    color: white;
+}
+
+/* Responsive Styles */
 @media (max-width: 768px) {
-    .main-header .row {
-        flex-direction: column;
-        text-align: center;
+    .header-main {
+        padding: 10px 0;
+    }
+
+    .site-branding {
+        margin-bottom: 15px;
+    }
+
+    .search-form {
+        margin: 15px 0;
     }
 
     .header-actions {
@@ -156,20 +231,16 @@ Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-com
         margin-top: 15px;
     }
 
-    .main-navigation .row {
+    .primary-menu {
         flex-direction: column;
+        align-items: center;
+    }
+
+    .primary-menu li {
+        margin: 5px 0;
     }
 
     .categories-menu {
         margin-bottom: 15px;
-    }
-
-    #primary-menu {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    #primary-menu li {
-        padding: 8px 0;
     }
 }
